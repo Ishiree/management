@@ -25,5 +25,5 @@ Route::get('list-permohonan', [\App\Http\Controllers\PermohonanController::class
 Route::resources([
     'permohonans' => PermohonanController::class,
 ]);
-Route::get('berkas/permohonans/{id}/approve', [App\Http\Controllers\PermohonanController::class, 'approve'])->name('approve');
-Route::get('status/permohonans/{id}/approve', [App\Http\Controllers\PermohonanController::class, 'rilis'])->name('approve');
+Route::get('permohonans/{id}/approve', [App\Http\Controllers\PermohonanController::class, 'approve'])->name('approve');
+Route::get('permohonans/{id}/rilis', [App\Http\Controllers\PermohonanController::class, 'rilis'])->name('approve');

@@ -68,7 +68,7 @@ class PermohonanController extends Controller
                         ->addColumn('action', function ($list_permohonan) {
                             return '<a href="/permohonans/' . $list_permohonan->id . '" class="text-primary"><i class="fas fa-search"></i></a>
                             <a href="/permohonans/' . $list_permohonan->id . '/edit" class="text-primary"><i class="fas fa-edit"></i></a>     
-                            <a href="/permohonans/' . $list_permohonan->id . '/approve" id="confirmApprove" class="text-primary"><i class="fas fa-check"></i></a>';})
+                            <a href="/permohonans/' . $list_permohonan->id . '/" id="confirmApprove" class="text-primary"><i class="fas fa-check"></i></a>';})
                         ->ToJson();
                         break;
                 case '4':
@@ -216,6 +216,7 @@ class PermohonanController extends Controller
         $permohonan->judul_permohonan = $request->judul_permohonan;
         $permohonan->nomor_permohonan = $request->nomor_permohonan;
         $permohonan->tanggal_permohonan = $request->tanggal_permohonan;
+        $permohonan->tanggal_rilis = $request->tanggal_rilis;
         $permohonan->jumlah_permohonan = $request->jumlah_permohonan;
         $permohonan->jenis_permohonan = $request->jenis_permohonan;
         $permohonan->bank_id = $request->bank_id;

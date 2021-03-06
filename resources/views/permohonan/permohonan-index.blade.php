@@ -14,6 +14,7 @@
                                 <th rowspan="2" class="align-middle">Judul Permohonan</th>
                                 <th rowspan="2" class="align-middle">Divisi</th>
                                 <th colspan="2" class="text-center">Status</th>
+                                <th rowspan="2" class="align-middle">Tanggal Permohonan</th>
                                 <th rowspan="2" class="align-middle">Aksi</th>                      
                             </tr>
                             <tr>
@@ -48,14 +49,14 @@
                     btnClass:'btn-success', 
                     action:function (confirmed) {
                     if(confirmed){
-                        window.location.href ='berkas' + link 
+                        window.location.href = link + 'approve'
                     }
                 }},
                 'Rilis': {
                     btnClass: 'btn-info text-white',
                     action:function (confirmed) {
                         if(confirmed){
-                            window.location.href ='status' + link
+                            window.location.href = link + 'rilis'
                         }   
                     }
                 }
@@ -110,7 +111,8 @@
                     orderable:false,
                     orderCellsTop: true, 
                     className:'text-center'
-                },                
+                },
+                {data:'tanggal_permohonan', name:'tanggal_permohonan', className:'text-center'},                
                 {data:'action', orderable:false, className:'text-center align-middle'}
             ],
             order:[[1,'asc']]
