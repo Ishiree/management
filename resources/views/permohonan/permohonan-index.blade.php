@@ -3,24 +3,27 @@
 @section('content')
 <div class="row justify-content-center">
         <div class="col-md-10">
-            <a href="{{ route('permohonans.create') }}" class="btn btn-success mb-5">Create Permohonan</a>
-            <table class="table table-striped table-bordered" id="table-permohonan">
-                <thead>
-                    <tr>
-                        <th rowspan="2" class="align-middle">No</th>
-                        <th rowspan="2" class="align-middle">Nomor Permohonan</th>
-                        <th rowspan="2" class="align-middle">Judul Permohonan</th>
-                        <th rowspan="2" class="align-middle">Divisi</th>
-                        <th colspan="2" class="text-center">Status</th>
-                        <th rowspan="2" class="align-middle">Aksi</th>                      
-                    </tr>
-                    <tr>
-                        <th>Berkas</th>
-                        <th>Rilis</th>
-                    </tr>
-                    
-                </thead>
-            </table>
+            <div class="card border-success">
+                <div class="card-body">
+                    <a href="{{ route('permohonans.create') }}" class="btn btn-primary mb-3">Create Permohonan</a>
+                    <table class="table table-striped table-bordered border-success" id="table-permohonan">
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class="align-middle">No</th>
+                                <th rowspan="2" class="align-middle">Nomor Permohonan</th>
+                                <th rowspan="2" class="align-middle">Judul Permohonan</th>
+                                <th rowspan="2" class="align-middle">Divisi</th>
+                                <th colspan="2" class="text-center">Status</th>
+                                <th rowspan="2" class="align-middle">Aksi</th>                      
+                            </tr>
+                            <tr>
+                                <th>Berkas</th>
+                                <th>Rilis</th>
+                            </tr>                    
+                        </thead>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>   
 </div>    
@@ -70,6 +73,7 @@
             }],
             serverSide : true,
             processing : true,
+            responsive : true,
             ajax : {
                 url: "{{ url('list-permohonan') }}",
                 type: 'GET',

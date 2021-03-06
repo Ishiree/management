@@ -31,10 +31,12 @@
                                 <label for="judul_permohonan" class="control-label col-form-label">Judul Permohonan</label>
                             </div>
                             <div class="col-md-8">
-                                <input required type="text" class="form-control" id="judul_permohonan" name="judul_permohonan" placeholder="Judul Permohonan...">
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                <input type="text" class="form-control" id="judul_permohonan" name="judul_permohonan" placeholder="Judul Permohonan..." required>
+                                @error('nomor_permohonan')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         <div class="row form-group">
@@ -42,10 +44,12 @@
                                 <label for="jumlah_permohonan" class="control-label col-form-label">Jumlah Permohonan</label>
                             </div>
                             <div class="col-md-8">
-                                <input required type="number" class="form-control" id="jumlah_permohonan" name="jumlah_permohonan" placeholder="Jumlah Permohonan...">
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                <input type="number" class="form-control" id="jumlah_permohonan" name="jumlah_permohonan" placeholder="Jumlah Permohonan..." required>
+                                @error('nomor_permohonan')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         <div class="row form-group">
@@ -53,14 +57,16 @@
                                 <label for="bank_id" class="control-label col-form-label">Nomor Permohonan</label>
                             </div>
                             <div class="col-md-8">
-                                <select required type="text" class="custom-select" id="bank_id" name="bank_id" placeholder="Jenis Bank...">
+                                <select type="text" class="custom-select" id="bank_id" name="bank_id" placeholder="Jenis Bank..." required>
                                     @foreach ($banks as $bank)
                                     <option value="{{ $bank->id }}">{{ $bank->nama_bank }}</option>
                                     @endforeach
                                 </select>
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                @error('nomor_permohonan')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         <div class="row form-group">
@@ -68,10 +74,12 @@
                                 <label for="tanggal_permohonan" class="control-label col-form-label">Tanggal Permohonan</label>
                             </div>
                             <div class="col-md-8">
-                                <input required type="date" class="form-control" id="tanggal_permohonan" name="tanggal_permohonan" value = "{{ Carbon\Carbon::now()->addDay()->format('Y-m-d') }}">
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                <input type="date" class="form-control" id="tanggal_permohonan" name="tanggal_permohonan" value = "{{ Carbon\Carbon::now()->addDay()->format('Y-m-d') }}" required>
+                                @error('nomor_permohonan')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         <div class="row form-group">
@@ -80,6 +88,7 @@
                             </div>
                             <div class="col-md-8">
                                 <textarea class="form-control" name="note" id="note" rows="3"></textarea>
+                                <span class="text-danger error-text email_err"></span>
                             </div>
                         </div>
                         
@@ -122,10 +131,15 @@
                                 data: $('#formInput').serialize(),
                                 type: "json",
                             });
-                            return $.alert({
+                            $.alert({
                                 type:'success',
                                 theme: 'modern',
-                                title:'Permohonan Sukses Dibuat'
+                                title:'Permohonan Sukses Dibuat',
+                                buttons:{
+                                    'Ok': function(){
+                                        return window.location.href = '{{ route('permohonans.index') }}'
+                                    }
+                                }
                             });
                         },
                         cancel: function () {

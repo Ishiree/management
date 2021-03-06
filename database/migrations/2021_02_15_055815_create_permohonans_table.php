@@ -19,7 +19,7 @@ class CreatePermohonansTable extends Migration
             $table->foreignId('user_id');
             $table->string('judul_permohonan');
             $table->date('tanggal_permohonan');
-            $table->enum('jenis_permohonan', ['tunai', 'transfer'])->default('tunai');
+            $table->enum('jenis_permohonan', ['tunai', 'transfer']);
             $table->foreignId('bank_id');
             $table->enum('status_berkas', ['pending', 'approved', 'rejected'])->default('pending');
             $table->enum('status_rilis', ['pending', 'rilis'])->default('pending');

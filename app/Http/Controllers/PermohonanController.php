@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bank;
 use App\Models\Permohonan;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -86,11 +86,8 @@ class PermohonanController extends Controller
                             <a href="/permohonans/' . $list_permohonan->id . '/status" class="text-primary"><i class="fas fa-check"></i></a>';})
                         ->ToJson();
                         break;
-                }
             }
-            
-            
-
+        }    
     }
 
     public function approve($id)
@@ -105,11 +102,10 @@ class PermohonanController extends Controller
     {
         $permohonan = Permohonan::findOrFail($id);
         $permohonan->status_rilis = 'rilis';
+        $permohonan->tanggal_rilis = date( Carbon::now()->addDay()->format('Y-m-d') );
         $permohonan->save();
         return redirect()->route('permohonans.index');
     }
-    
-
 
     /**
      * Show the form for creating a new resource.
@@ -144,22 +140,28 @@ class PermohonanController extends Controller
         ]);
 
         if (!$validator->fails()) {
-
             $var = new Permohonan();
+ 
+            // $jumlahPermohonan = $var->jumlah_permohonan;
+            $jumlahPermohonan = $var->jumlah_permohonan = $request->jumlah_permohonan;
+
+            if(!$jumlahPermohonan >= 500001){
+                $jenisPermohonan = 'tunai';
+            }else{
+                $jenisPermohonan = 'transfer';
+            }
+
             $var->judul_permohonan = $request->judul_permohonan;
             $var->nomor_permohonan = $request->nomor_permohonan;
             $var->tanggal_permohonan = $request->tanggal_permohonan;
-            $var->jumlah_permohonan = $request->jumlah_permohonan;
             $var->bank_id = $request->bank_id;
             $var->user_id = Auth::user()->id;
             $var->note = $request->note;
+            $var->jenis_permohonan = $jenisPermohonan;
             $var->save();
-
-            return response()->json(['success'=>'Added new records.']);
             
+            return redirect()->route('permohonans.index');
         }
-
-        return response()->json(['error'=>$validator->errors()]);
 
     }
 
@@ -210,23 +212,19 @@ class PermohonanController extends Controller
             'status_rilis' => 'required',   
         ]);
 
-        
-
         $permohonan = Permohonan::findOrFail($id);
         $permohonan->judul_permohonan = $request->judul_permohonan;
         $permohonan->nomor_permohonan = $request->nomor_permohonan;
         $permohonan->tanggal_permohonan = $request->tanggal_permohonan;
         $permohonan->jumlah_permohonan = $request->jumlah_permohonan;
+        $permohonan->jenis_permohonan = $request->jenis_permohonan;
         $permohonan->bank_id = $request->bank_id;
-        $permohonan->user_id = Auth::user()->id;
         $permohonan->note = $request->note;
         $permohonan->status_berkas = $request->status_berkas;
         $permohonan->status_rilis = $request->status_rilis;
         $permohonan->save();
-        // Alert::success('Berhasil di Buat', 'Data Permohonan Berhasil di Update', 'AlertSuccess');
-        return redirect()->route('permohonans.index');
-
         
+        return redirect()->route('permohonans.index');        
     }
 
     /**

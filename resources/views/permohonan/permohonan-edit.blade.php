@@ -67,10 +67,21 @@
                                 <label for="status_berkas" class="control-label col-form-label">Status Berkas</label>
                             </div>
                             <div class="col-md-8">
-                                <select type="text" value="{{ $permohonan->status_berkas }}" class="custom-select" id="status_berkas" name="status_berkas" placeholder="Jenis Bank...">
+                                <select type="text" value="{{ $permohonan->status_berkas }}" class="custom-select" id="status_berkas" name="status_berkas" placeholder="Status Berkas . . .">
                                     <option value="pending">Pending</option>
                                     <option value="approved">Approved</option>
                                     <option value="rejected">Rejected</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-4 text-right">
+                                <label for="jenis_permohonan" class="control-label col-form-label">Jenis Permohonan</label>
+                            </div>
+                            <div class="col-md-8">
+                                <select type="text" value="{{ $permohonan->jenis_permohonan }}" class="custom-select" id="jenis_permohonan" name="jenis_permohonan" placeholder="Jenis Permohonan . . .">
+                                    <option value="tunai">Tunai</option>
+                                    <option value="transfer">Transfer</option>
                                 </select>
                             </div>
                         </div>
@@ -85,7 +96,14 @@
                                 </select>
                             </div>
                         </div>
-                        
+                        <div class="row form-group">
+                            <div class="col-md-4 text-right">
+                                <label for="tanggal_rilis" class="control-label col-form-label">Tanggal rilis</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="date" class="form-control" id="tanggal_rilis" name="tanggal_rilis" value = "{{ $permohonan->tanggal_rilis }}">
+                            </div>
+                        </div>
                         <div class="text-right">
                             <button id="button" type="submit" class="btn btn-success">Submit</button>
                         </div>
@@ -94,17 +112,15 @@
             </div>
         </div>
     </div>
-    @endsection
-    @push('scripts')
+@endsection
+@push('scripts')
     <script>
          $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
+            }   
         });
-        $.(document).ready(function(){
-
-            $('#formInput').submit(function(e){
+        $('#formInput').submit(function(e){
                 var routePost = '{{ route('permohonans.update', $permohonan->id) }}'
                 e.preventDefault();
                 $.confirm({
@@ -127,7 +143,12 @@
                             return $.alert({
                                 type:'success',
                                 theme: 'modern',
-                                title:'Permohonan Sukses Dibuat'
+                                title:'Permohonan Sukses Dibuat',
+                                buttons:{
+                                    'Ok': function(){
+                                        return window.location.href = '{{ route('permohonans.index') }}'
+                                    }
+                                }
                             });
                         },
                         cancel: function () {
@@ -136,6 +157,5 @@
                     }
                 });
             });
-        });
     </script>
-    @endpush
+@endpush
