@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bank;
+use App\Models\Divisi;
 use App\Models\Permohonan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -19,8 +20,8 @@ class PermohonanController extends Controller
     
     public function index(Request $request)
     { 
-        
-        return view('permohonan.permohonan-index');
+        $list_divisi = Divisi::all();
+        return view('permohonan.permohonan-index', compact('list_divisi'));
     }
     
     public function permohonanQuery(Request $request)
@@ -35,11 +36,11 @@ class PermohonanController extends Controller
                     ->join('users', 'permohonans.user_id', '=', 'users.id')
                         ->join('divisis', 'users.divisi_id', '=', 'divisis.id')
                         ->select('permohonans.*', 'divisis.nama_divisi as nama_divisi');
-                        return datatables()->of($list_permohonan)
                         
+                        return datatables()->of($list_permohonan)
                         ->addColumn('action', function ($list_permohonan) {
-                            return '<a href="/permohonans/' . $list_permohonan->id . '" class="text-primary"><i class="fas fa-search"></i></a>';})
-                            ->ToJson();
+                            return '<a href="/permohonans/' . $list_permohonan->id . '" class="text-primary"><i class="fas fa-search"></i></a>';
+                            })->ToJson();
                             break;
                 case '1':
                     $list_permohonan_query = Permohonan::query();
@@ -141,8 +142,6 @@ class PermohonanController extends Controller
 
         if (!$validator->fails()) {
             $var = new Permohonan();
- 
-            // $jumlahPermohonan = $var->jumlah_permohonan;
             $jumlahPermohonan = $var->jumlah_permohonan = $request->jumlah_permohonan;
 
             if(!$jumlahPermohonan >= 500001){

@@ -32,7 +32,7 @@
                             </div>
                             <div class="col-md-8">
                                 <input type="text" class="form-control" id="judul_permohonan" name="judul_permohonan" placeholder="Judul Permohonan..." required>
-                                @error('nomor_permohonan')
+                                @error('judul_permohonan')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -45,7 +45,7 @@
                             </div>
                             <div class="col-md-8">
                                 <input type="number" class="form-control" id="jumlah_permohonan" name="jumlah_permohonan" placeholder="Jumlah Permohonan..." required>
-                                @error('nomor_permohonan')
+                                @error('jumlah_permohonan')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -62,7 +62,7 @@
                                     <option value="{{ $bank->id }}">{{ $bank->nama_bank }}</option>
                                     @endforeach
                                 </select>
-                                @error('nomor_permohonan')
+                                @error('bank_id')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -75,7 +75,7 @@
                             </div>
                             <div class="col-md-8">
                                 <input type="date" class="form-control" id="tanggal_permohonan" name="tanggal_permohonan" value = "{{ Carbon\Carbon::now()->addDay()->format('Y-m-d') }}" required>
-                                @error('nomor_permohonan')
+                                @error('tanggal_permohonan')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

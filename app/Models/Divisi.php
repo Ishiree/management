@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Divisi extends Model
 {
+    protected $fillable = ['nama_bank', 'kode_bank'];
+
     use HasFactory;
 
     public function users()
