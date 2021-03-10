@@ -21,12 +21,14 @@ class DivisiController extends Controller
 
     public function divisiQuery(Request $request)
     {
-        
         $list_divisi = Divisi::all();
         if($request->ajax()){
             return datatables()->of($list_divisi)->addColumn('action', function ($list_divisi) {
-                return '<a class="text-primary" onclick="editPage()" data-toggle="modal" data-target="#editModal"><i class="fas fa-edit"></i></a>     
+                return '<a href="/divisis/' . $list_divisi->id . '/edit" class="text-primary" onclick="editPage(' . $list_divisi->id . ')" ><i class="fas fa-edit"></i></a>     
                 <a href="/divisis/delete" class="text-primary"><i class="fas fa-trash"></i></a>';})->ToJson();
+            // return datatables()->of($list_divisi)->addColumn('action', function ($list_divisi) {
+            //     return '<a href="/permohonans/' . $list_divisi->id . '/edit" class="text-primary" onclick="editPage(' . $list_divisi->id . ')" data-toggle="modal" data-target="#editModal"><i class="fas fa-edit"></i></a>     
+            //     <a href="/divisis/delete" class="text-primary"><i class="fas fa-trash"></i></a>';})->ToJson();
         }
     }
 
